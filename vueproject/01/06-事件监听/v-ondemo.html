@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{message}}</h1>
+    <button @click='btnClick'>test</button>
+    <button @click='btnClick(123)'>test1</button>
+    <button @click='btn2Click(123,$event)'>test2</button>
+    <div @click="btn2Div">
+        1111111
+        <button @click.stop="btn3Click">test3</button>
+    </div>
+    <br>
+    <form action="baidu">
+        <input type="submit" value="提交" @click.prevent="submitClick">
+    </form>
+    <br>
+    <input type="text" value = '提交' @keyup.enter="keyup">
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '蛤蛤'
+        },
+        methods:{
+            btnClick(event) {
+                console.log('event = ' + event,event)
+            },
+            btn2Click(testString,event) {
+                console.log('testString=' + testString + ' event = ' + event)
+            },
+            btn2Div(){
+                console.log('div');
+            },
+            btn3Click(){
+                console.log('btn');
+            },
+            submitClick(){
+                console.log('submit');
+            },
+            keyup(){
+                console.log('keyup');
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{message}}</h1>
+    <ul>
+        <li v-for="item in letters">{{item}}</li>
+    </ul>
+    <button @click="btnClick">操作</button>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '蛤蛤',
+            letters:['A','B','C','D','E']
+        },
+        methods:{
+            btnClick(){
+                console.log('click');
+                // this.letters.push('F')
+                // this.letters.pop()
+                // this.letters.shift()//头部删除
+                // this.letters.unshift('0','1','2')
+                // this.letters.splice(1,3,'m','n')
+                // this.letters.sort()
+                // this.letters.reverse()
+                Vue.set(this.letters,'0','1111')
+
+
+                // this.letters[0]='K'
+            }
+        }
+    })
+
+    function sum(...numbers) {
+
+    }
+</script>
+</body>
+</html>

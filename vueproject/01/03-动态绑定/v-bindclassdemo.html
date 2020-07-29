@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active{
+            color: red;
+        }
+        .active2{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+<!--    <h1 class = "active">{{message}}</h1>-->
+<!--    <h1 :class = "active">{{message}}</h1>-->
+    <h1 :class = "{active:  isActive,   line:  isLine}">{{message}}</h1>
+<!--    <h1 :class = "getClasses()">{{message}}</h1>-->
+<!--    <h1 :class = "['active','line']">{{message}}</h1>-->
+    <button v-on:click="btnClick">test</button>
+
+</div>
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '蛤蛤',
+      active:'active2',
+      isActive:true,
+      isLine:true
+    },
+    methods:{
+      getClasses: function () {
+            return {active:  this.isActive,   line:  this.isLine}
+      },
+        btnClick:function () {
+          console.log("click")
+            this.isActive = !this.isActive
+        }
+    }
+  })
+</script>
+</body>
+</html>

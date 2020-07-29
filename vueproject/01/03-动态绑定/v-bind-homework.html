@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+  <h1>{{message}}</h1>
+    <ul>
+        <li v-for="(item,index) in movies" :class="{active:index === currentIndex}" v-on:click="clickList(index)">{{item}}</li>
+    </ul>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '蛤蛤',
+      movies: ['test1', 'test2','test3'],
+      currentIndex : 0,
+      isActive: true
+    },
+    methods:{
+      clickList:function (index) {
+        console.log("index="+index )
+        this.currentIndex = index
+            // this.moviesActive[index] = !this.moviesActive[index]
+      }
+    }
+  })
+</script>
+</body>
+</html>

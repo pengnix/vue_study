@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div id="app" v-cloak>
+  <h1>{{message}}</h1>
+  <h1 v-pre>{{message}}</h1>
+  <h1 v-once>{{message}}</h1>
+  <h1 v-html="url"></h1>
+</div>
+<div >
+  <h1>11111</h1>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    setTimeout(function () {
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: '蛤蛤',
+          url:'<a href="http://www.baidu.com">baidu.com</a>'
+        }
+      })
+    },1000)
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{message}}</h1>
+    <h1>{{fullName}}</h1>
+    <h1>{{fullName}}</h1>
+    <h1>{{totalPrice}}</h1>
+
+</div>
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '蛤蛤',
+      firstName:"test1",
+      lastName:'test2',
+      books:[
+        {name:'1',price:1},
+        {name:'2',price:2},
+        {name:'3',price:2},
+        {name:'4',price:1}
+      ]
+    },
+    computed:{
+      // fullName: function{
+      //   console.log("test1")
+      //   return this.firstName + ' ' + this.lastName
+      // },
+      fullName:{
+        set:function(newValue){
+          console.log('set value = ' + newValue)
+          const words = newValue.split(' ');
+          this.firstName = words[0]
+          this.lastName = words[1];
+        },
+        get:  function() {
+          return this.firstName + ' ' + this.lastName
+        }
+      },
+      totalPrice:function () {
+            let result = 0;
+            for(let i=0;i<this.books.length;i++){
+              result+=this.books[i].price;
+            }
+            return result
+      }
+    }
+  })
+</script>
+</body>
+</html>

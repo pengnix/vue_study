@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <button>button0</button>
+    <button>button1</button>
+    <button>button2</button>
+    <button>button3</button>
+    <button>button4</button>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const btns = document.getElementsByTagName('button')
+    for(let i = 0;i<btns.length;i++){
+      btns[i].addEventListener('click',function () {
+            console.log('click '+ i + ' button');
+      })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model.lazy="message">
+    <h1>{{message}}</h1>
+    <input type="number" v-model.number="age">
+    <h1>{{age}} {{typeof age}}</h1>
+    <input type="text" v-model.trim="name">
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '蛤蛤',
+            age: 0,
+            name:''
+        }
+    })
+</script>
+</body>
+</html>
