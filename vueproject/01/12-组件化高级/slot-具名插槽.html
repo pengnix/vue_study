@@ -6,16 +6,14 @@
 </head>
 <body>
 <div id="app">
-    <cpn><button>案例1</button></cpn>
-    <cpn><h1>标题1</h1></cpn>
-    <cpn><h1>标题2</h1></cpn>
-    <cpn></cpn>
+    <cpn><button slot="left">left</button></cpn>
+    <cpn><button slot="right">right</button></cpn>
 </div>
 <template id="cpn">
     <div>
         <h1>test</h1>
-<!--        <button>btn</button>-->
-        <slot><h2>插槽默认</h2></slot>
+        <slot name="left"><span>插槽默认left</span></slot>
+        <slot name="right"><span>插槽默认right</span></slot>
     </div>
 </template>
 <script src="../js/vue.js"></script>
