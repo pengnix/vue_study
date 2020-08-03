@@ -4,7 +4,8 @@ module.exports = {
     entry: "./src/main.js",
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: "bundle.js"
+        filename: "bundle.js",
+        publicPath:'dist/'
     },
     module: {
         rules: [
@@ -21,6 +22,20 @@ module.exports = {
                 }, {
                     loader: "less-loader" // compiles Less to CSS
                 }]
+            },
+            {
+                test: /\.(png|jpg|gif|jpeg)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            //小于limit，将图片编译成base64字符串形式
+                            //大于limit，将使用file-loader
+                            limit: 30000,
+                            name:'img/[name].[hash:8].[ext]'
+                        }
+                    }
+                ]
             }
         ]
     }

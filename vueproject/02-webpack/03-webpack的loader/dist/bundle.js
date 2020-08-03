@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "dist/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 2);
@@ -453,7 +453,7 @@ console.log(add(10, 10));
 console.log(__WEBPACK_IMPORTED_MODULE_0__js_info__["a" /* name */]);
 
 __webpack_require__(5)
-__webpack_require__(7)
+__webpack_require__(9)
 
 document.writeln('<h2>run run run</h2>')
 
@@ -513,9 +513,12 @@ module.exports = content.locals || {};
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_GET_URL_IMPORT___ = __webpack_require__(7);
+var ___CSS_LOADER_URL_IMPORT_0___ = __webpack_require__(8);
 exports = ___CSS_LOADER_API_IMPORT___(false);
+var ___CSS_LOADER_URL_REPLACEMENT_0___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_0___);
 // Module
-exports.push([module.i, "body {\r\n    background-color: red;\r\n}", ""]);
+exports.push([module.i, "body {\r\n    /*background-color: red;*/\r\n    background: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\r\n}", ""]);
 // Exports
 module.exports = exports;
 
@@ -524,8 +527,56 @@ module.exports = exports;
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+module.exports = function (url, options) {
+  if (!options) {
+    // eslint-disable-next-line no-param-reassign
+    options = {};
+  } // eslint-disable-next-line no-underscore-dangle, no-param-reassign
+
+
+  url = url && url.__esModule ? url.default : url;
+
+  if (typeof url !== 'string') {
+    return url;
+  } // If url is already wrapped in quotes, remove them
+
+
+  if (/^['"].*['"]$/.test(url)) {
+    // eslint-disable-next-line no-param-reassign
+    url = url.slice(1, -1);
+  }
+
+  if (options.hash) {
+    // eslint-disable-next-line no-param-reassign
+    url += options.hash;
+  } // Should url be wrapped?
+  // See https://drafts.csswg.org/css-values-3/#urls
+
+
+  if (/["'() \t\n]/.test(url) || options.needQuotes) {
+    return "\"".concat(url.replace(/"/g, '\\"').replace(/\n/g, '\\n'), "\"");
+  }
+
+  return url;
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "img/test2.07d900ef.jpg");
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var api = __webpack_require__(0);
-            var content = __webpack_require__(8);
+            var content = __webpack_require__(10);
 
             content = content.__esModule ? content.default : content;
 
@@ -545,7 +596,7 @@ var update = api(content, options);
 module.exports = content.locals || {};
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
