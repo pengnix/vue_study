@@ -5,7 +5,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: "bundle.js",
-        publicPath:'dist/'
+        publicPath: 'dist/'
     },
     module: {
         rules: [
@@ -32,7 +32,7 @@ module.exports = {
                             //小于limit，将图片编译成base64字符串形式
                             //大于limit，将使用file-loader
                             limit: 30000,
-                            name:'img/[name].[hash:8].[ext]'
+                            name: 'img/[name].[hash:8].[ext]'
                         }
                     }
                 ]
@@ -48,5 +48,10 @@ module.exports = {
                 }
             }
         ]
+    },
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        }
     }
 }
