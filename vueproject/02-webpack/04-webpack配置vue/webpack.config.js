@@ -46,10 +46,17 @@ module.exports = {
                         presets: ['es2015']
                     }
                 }
+            },
+            {
+                test: /\.vue$/,
+                use: [{
+                    loader: "vue-loader" // creates style nodes from JS strings
+                }]
             }
         ]
     },
     resolve: {
+        extensions: ['.js', '.css', '.vue'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js'
         }
