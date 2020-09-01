@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>我是{{userId2}}</h2>
+        <h2>我是{{userId}}</h2>
     </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
     name:"User",
     computed:{
-        userId2(){
+        userId(){
             return this.$route.params.userId
         }
     }
