@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+
+<body>
+    <script>
+        setTimeout(()=>{
+            console.log(this)
+        },1000)
+        const obj = {
+            aaa(){
+                setTimeout(function(){
+                    console.log(this)//window
+                })
+                setTimeout(()=>{
+                    console.log(this)//obj
+                })
+            }
+        }
+        obj.aaa()
+    </script>
+</body>
+
+</html>
