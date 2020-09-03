@@ -10,7 +10,9 @@
     <router-link to='/about' tag="button" replace active-class="active">关于</router-link>-->
     <!-- <button @click="clickHome">首页</button>
     <button @click="clickAbout">关于</button>-->
-    <router-view></router-view>
+    <keep-alive exclude="Profile,User">
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

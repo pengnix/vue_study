@@ -26,10 +26,10 @@ const routes = [
       title: '首页'
     },
     children: [
-      {
-        path: '',
-        redirect: 'news'
-      },
+      // {
+      //   path: '',
+      //   redirect: 'news'
+      // },
       {
         path: 'news',
         component: HomeNew
@@ -45,7 +45,11 @@ const routes = [
     meta: {
       title: '关于'
     },
-    component: About
+    component: About,
+    beforeEnter:(to, from, next) => {
+      // console.log("beforeRouteEnter")
+      next()
+    }
   },
   {
     path: '/user/:userId',
@@ -68,10 +72,15 @@ const router = new VueRouter({
   mode: 'history',
   linkActiveClass: 'active'
 })
-
+//全局
 router.beforeEach((to, from, next) => {
   document.title = to.matched[0].meta.title
   next()
+  // console.log("beforeEach")
+})
+//全局
+router.afterEach((to, from) => {
+  // console.log("afterEach")
 })
 
 export default router
