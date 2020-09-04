@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>title1</title>
+</head>
+
+<body>
+    <script>
+        // new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve('hello')
+        //     }, 1000)
+        // }).then((data) => {
+        //     console.log('data=' + data)
+        //     return Promise.resolve(data + '111')
+        // }).then(data => {
+        //     console.log('data=' + data)
+        //     return Promise.resolve(data + '222')
+        // }).then(data => {
+        //     console.log('data = ' + data)
+        // })
+
+        // new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve('hello')
+        //     }, 1000)
+        // }).then((data) => {
+        //     console.log('data=' + data)
+        //     return data + '111'
+        // }).then(data => {
+        //     console.log('data=' + data)
+        //     return data + '222'
+        // }).then(data => {
+        //     console.log('data = ' + data)
+        // })
+
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('hello')
+            }, 1000)
+        }).then((data) => {
+            console.log('data=' + data)
+            return data + '111'
+        }).then(data => {
+            console.log('data=' + data)
+            throw 'error'
+        }).then(data => {
+            console.log('data = ' + data)
+        }, error => {
+            console.log('error=' + error)
+        })
+    </script>
+</body>
+
+</html>

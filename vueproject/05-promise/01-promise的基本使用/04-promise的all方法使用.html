@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>title1</title>
+</head>
+
+<body>
+    <script>
+        Promise.all([
+            new Promise(resolve=>{
+                setTimeout(()=>{
+                    console.log('A1')
+                    resolve('data1');
+                },1000)
+            }),
+            new Promise(resolve=>{
+                setTimeout(()=>{
+                    console.log('A3')
+                    resolve('data2');
+                },3000)
+            })
+        ]).then(results=>{
+            console.log('results = ' + results)
+        })
+    </script>
+</body>
+
+</html>
