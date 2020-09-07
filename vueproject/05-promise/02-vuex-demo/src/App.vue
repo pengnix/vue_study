@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <h1>{{$store.state.a.name}}</h1>
+    <h1>{{$store.getters.fullName}}</h1>
+    <h1>{{$store.getters.fullName2}}</h1>
+    <h1>{{$store.getters.fullName3}}</h1>
+    <button @click="updateName">updateName</button>
+    <h1>{{$store.state.info}}</h1>
+    <button @click="changeInfo">change</button>
     <h1>{{message}}</h1>
     <h1>{{$store.state.counter}}</h1>
     <button @click="addition">+</button>
@@ -18,6 +25,7 @@
 
 <script>
 import HelloVuex from "./components/HelloVuex";
+import { INCREMENT } from "./store/mutations-types";
 
 export default {
   name: "App",
@@ -32,7 +40,7 @@ export default {
   },
   methods: {
     addition() {
-      this.$store.commit("increment");
+      this.$store.commit(INCREMENT);
     },
     subtraction() {
       this.$store.commit("decrement");
@@ -41,15 +49,24 @@ export default {
       this.$store.commit("addCount", 5);
     },
     addCountNew(num) {
-      console.log('A:'+ num)
+      console.log("A:" + num);
       this.$store.commit({
         type: "addCountNew",
-        num
+        num,
       });
     },
     addStu() {
       const stu = { id: "Wednesday", age: 7 };
       this.$store.commit("addPerson", stu);
+    },
+    changeInfo() {
+      // this.$store.commit("changeInfo");
+      this.$store.dispatch("aUpdateInfo", "payload").then((res) => {
+        console.log(res);
+      });
+    },
+    updateName() {
+      this.$store.commit("updateName");
     },
   },
 };
