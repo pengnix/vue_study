@@ -4,6 +4,14 @@
     <h1>{{$store.state.counter}}</h1>
     <button @click="addition">+</button>
     <button @click="subtraction">-</button>
+    <button @click="addCount(5)">+5</button>
+    <button @click="addCountNew(5)">+5</button>
+    <button @click="addStu">add person</button>
+    <h2>{{$store.getters.powerCounter}}</h2>
+    <h2>{{$store.getters.more5Person}}</h2>
+    <h2>???{{$store.getters.more5PersonLen}}</h2>
+    <h2>{{$store.getters.moreAgePerson(0)}}</h2>
+
     <hello-vuex></hello-vuex>
   </div>
 </template>
@@ -28,6 +36,20 @@ export default {
     },
     subtraction() {
       this.$store.commit("decrement");
+    },
+    addCount(num) {
+      this.$store.commit("addCount", 5);
+    },
+    addCountNew(num) {
+      console.log('A:'+ num)
+      this.$store.commit({
+        type: "addCountNew",
+        num
+      });
+    },
+    addStu() {
+      const stu = { id: "Wednesday", age: 7 };
+      this.$store.commit("addPerson", stu);
     },
   },
 };
