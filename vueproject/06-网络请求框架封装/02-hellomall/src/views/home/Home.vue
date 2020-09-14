@@ -6,11 +6,85 @@
     <home-swiper :banners="banners"/>
     <recommend-view :recommends='recommends'/>
     <feature-view/>
+    <tab-control class='tab-control' :titles="['流行','新款','精选']"/>
+    <ul>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+    </ul>
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar";
+import TabControl from "components/content/tabControl/TabControl"
+
 import { getHomeMultidata } from "network/home.js";
 import HomeSwiper from './childComps/HomeSwiper'
 import RecommendView from './childComps/RecommendView'
@@ -19,6 +93,7 @@ export default {
   name: "Home",
   components: {
     NavBar,
+    TabControl,
     HomeSwiper,
     RecommendView,
     FeatureView
@@ -53,5 +128,10 @@ export default {
 
 #home{
   padding-top: 44px;
+}
+
+.tab-control{
+  position: sticky;
+  top:44px;
 }
 </style>
