@@ -7,19 +7,20 @@
     <recommend-view :recommends="recommends" />
     <feature-view />
     <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick" />
-    <goods-list :goods="showGoods"/>
+    <goods-list :goods="showGoods" />
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
-import GoodsList from 'components/content/goods/GoodsList'
+import GoodsList from "components/content/goods/GoodsList";
 
 import { getHomeMultidata, getHomeGoods } from "network/home.js";
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
+
 export default {
   name: "Home",
   components: {
@@ -28,7 +29,7 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
-    GoodsList
+    GoodsList,
   },
   data() {
     return {
@@ -39,7 +40,7 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
-      currentType:'pop'
+      currentType: "pop",
     };
   },
   created() {
@@ -49,9 +50,9 @@ export default {
     this.getHomeGoods("sell");
   },
   computed: {
-    showGoods(){
-      return this.goods[this.currentType].list
-    }
+    showGoods() {
+      return this.goods[this.currentType].list;
+    },
   },
   methods: {
     getHomeMultidata() {
@@ -69,19 +70,19 @@ export default {
         this.goods[type].page += 1;
       });
     },
-    tabClick(index){
-      switch(index){
+    tabClick(index) {
+      switch (index) {
         case 0:
-          this.currentType='pop';
+          this.currentType = "pop";
           break;
         case 1:
-          this.currentType='new';
+          this.currentType = "new";
           break;
         case 2:
-          this.currentType='sell';
-          break
+          this.currentType = "sell";
+          break;
       }
-    }
+    },
   },
 };
 </script>
