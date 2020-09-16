@@ -3,52 +3,14 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <scroll class="content">
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
       <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick" />
       <goods-list :goods="showGoods" />
-
-          <!-- <ul>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-    </ul> -->
     </scroll>
-
+    <back-top @click.native="backClick" v-show="isShow" />
   </div>
 </template>
 
@@ -57,6 +19,7 @@ import NavBar from "components/common/navbar/NavBar";
 import Scroll from "components/common/scroll/Scroll";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
+import BackTop from "components/content/backTop/BackTop";
 
 import { getHomeMultidata, getHomeGoods } from "network/home.js";
 import HomeSwiper from "./childComps/HomeSwiper";
@@ -73,6 +36,7 @@ export default {
     FeatureView,
     GoodsList,
     Scroll,
+    BackTop,
   },
   data() {
     return {
@@ -84,6 +48,7 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
+      isShow: false,
     };
   },
   created() {
@@ -126,6 +91,14 @@ export default {
           break;
       }
     },
+    backClick() {
+      console.log("1111");
+      this.$refs.scroll.scrollTo(0, 0, 500);
+    },
+    contentScroll(position) {
+      console.log(position.y);
+      this.isShow = position.y < -1000;
+    },
   },
 };
 </script>
@@ -143,7 +116,7 @@ export default {
 }
 
 #home {
-  /* padding-top: 44px; */
+  padding-top: 44px;
   height: 100vh;
   position: relative;
 }
