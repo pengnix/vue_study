@@ -3,9 +3,14 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
-      <!-- <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore"> -->
-
+    <scroll
+      class="content"
+      ref="scroll"
+      :probe-type="3"
+      @scroll="contentScroll"
+      :pull-up-load="true"
+      @pullingUp="loadMore"
+    >
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
@@ -27,6 +32,8 @@ import { getHomeMultidata, getHomeGoods } from "network/home.js";
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
+
+import { debounce } from "common/utils.js";
 
 export default {
   name: "Home",
@@ -60,9 +67,9 @@ export default {
     this.getHomeGoods("sell");
   },
   mounted() {
-    const refresh = this.debounce(this.$refs.scroll.refresh,100)
+    const refresh = debounce(this.$refs.scroll.refresh, 100);
     this.$bus.$on("itemImageLoad", () => {
-      refresh()
+      refresh();
     });
   },
   computed: {
@@ -71,17 +78,6 @@ export default {
     },
   },
   methods: {
-    debounce(func,delay){
-      let timer = null;
-      return function(...args){
-        if(timer){
-          clearTimeout(timer)
-        }
-        timer = setTimeout(()=>{
-          func.apply(this,args);
-        },delay);
-      }
-    },
     getHomeMultidata() {
       getHomeMultidata().then((res) => {
         // console.log(res);
@@ -95,7 +91,7 @@ export default {
         console.log(res);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
-        // this.$refs.scroll.finishPullUp();
+        this.$refs.scroll.finishPullUp();
       });
     },
     tabClick(index) {

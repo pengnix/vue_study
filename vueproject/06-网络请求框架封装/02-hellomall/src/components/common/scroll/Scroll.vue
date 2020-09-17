@@ -18,10 +18,10 @@ export default {
       type: Number,
       default: 0,
     },
-    // pullUpLoad:{
-    //   type:Boolean,
-    //   default:false
-    // }
+    pullUpLoad:{
+      type:Boolean,
+      default:false
+    }
   },
   data() {
     return {
@@ -32,16 +32,16 @@ export default {
     this.scroll = new BScroll(this.$refs.wrapper, {
       probeType: this.probeType,
       click: true,
-      // pullUpLoad:this.pullUpLoad,
+      pullUpLoad:this.pullUpLoad,
     });
     this.scroll.on("scroll", (position) => {
       // console.log(position);
       this.$emit("scroll", position);
     });
-    // this.scroll.on("pullingUp",()=>{
-    //   console.log("pullingUp");
-    //   this.$emit("pullingUp")
-    // })
+    this.scroll.on("pullingUp",()=>{
+      console.log("pullingUp");
+      this.$emit("pullingUp")
+    })
   },
   methods: {
     scrollTo(x, y, time = 300) {
