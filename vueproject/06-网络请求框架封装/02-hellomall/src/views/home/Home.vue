@@ -60,8 +60,9 @@ export default {
     this.getHomeGoods("sell");
   },
   mounted() {
+    const refresh = this.debounce(this.$refs.scroll.refresh,100)
     this.$bus.$on("itemImageLoad", () => {
-      this.$refs.scroll && this.$refs.scroll.refresh();
+      refresh()
     });
   },
   computed: {
@@ -70,6 +71,17 @@ export default {
     },
   },
   methods: {
+    debounce(func,delay){
+      let timer = null;
+      return function(...args){
+        if(timer){
+          clearTimeout(timer)
+        }
+        timer = setTimeout(()=>{
+          func.apply(this,args);
+        },delay);
+      }
+    },
     getHomeMultidata() {
       getHomeMultidata().then((res) => {
         // console.log(res);
