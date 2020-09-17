@@ -3,7 +3,7 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
@@ -76,6 +76,7 @@ export default {
         console.log(res);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
+        this.$refs.scroll.finishPullUp()
       });
     },
     tabClick(index) {
@@ -96,9 +97,12 @@ export default {
       this.$refs.scroll.scrollTo(0, 0, 500);
     },
     contentScroll(position) {
-      console.log(position.y);
+      // console.log(position.y);
       this.isShow = position.y < -1000;
     },
+    loadMore(){
+      this.getHomeGoods(this.currentType)
+    }
   },
 };
 </script>
