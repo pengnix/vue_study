@@ -3,7 +3,9 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
+      <!-- <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore"> -->
+
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
@@ -56,6 +58,10 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
+
+    this.$bus.$on("itemImageLoad",()=>{
+      this.$refs.scroll.refresh()
+    })
   },
   computed: {
     showGoods() {
@@ -76,7 +82,7 @@ export default {
         console.log(res);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
-        this.$refs.scroll.finishPullUp()
+        // this.$refs.scroll.finishPullUp();
       });
     },
     tabClick(index) {
@@ -100,9 +106,9 @@ export default {
       // console.log(position.y);
       this.isShow = position.y < -1000;
     },
-    loadMore(){
-      this.getHomeGoods(this.currentType)
-    }
+    loadMore() {
+      this.getHomeGoods(this.currentType);
+    },
   },
 };
 </script>

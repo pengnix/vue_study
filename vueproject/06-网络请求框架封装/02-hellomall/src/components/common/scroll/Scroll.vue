@@ -14,14 +14,14 @@ export default {
     BScroll,
   },
   props: {
-    probeType:{
-      type:Number,
-      default:0
+    probeType: {
+      type: Number,
+      default: 0,
     },
-    pullUpLoad:{
-      type:Boolean,
-      default:false
-    }
+    // pullUpLoad:{
+    //   type:Boolean,
+    //   default:false
+    // }
   },
   data() {
     return {
@@ -31,26 +31,30 @@ export default {
   mounted() {
     this.scroll = new BScroll(this.$refs.wrapper, {
       probeType: this.probeType,
-      click:true,
-      pullUpLoad:this.pullUpLoad,
+      click: true,
+      // pullUpLoad:this.pullUpLoad,
     });
     this.scroll.on("scroll", (position) => {
       // console.log(position);
-      this.$emit("scroll",position)
+      this.$emit("scroll", position);
     });
-    this.scroll.on("pullingUp",()=>{
-      console.log("pullingUp");
-      this.$emit("pullingUp")
-    })
+    // this.scroll.on("pullingUp",()=>{
+    //   console.log("pullingUp");
+    //   this.$emit("pullingUp")
+    // })
   },
   methods: {
-    scrollTo(x,y,time=300){
-      this.scroll.scrollTo(x,y,time);
+    scrollTo(x, y, time = 300) {
+      this.scroll.scrollTo(x, y, time);
     },
-    finishPullUp(){
-      this.scroll.finishPullUp()
-    }
-  }
+    finishPullUp() {
+      this.scroll.finishPullUp();
+    },
+    refresh() {
+      this.scroll.refresh();
+      console.log("111");
+    },
+  },
 };
 </script>
 <style scoped>
