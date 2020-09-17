@@ -51,7 +51,7 @@ export default {
       this.scroll.finishPullUp();
     },
     refresh() {
-      this.scroll.refresh();
+      this.scroll && this.scroll.refresh && this.scroll.refresh();
       console.log("111");
     },
   },
