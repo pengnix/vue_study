@@ -126,7 +126,7 @@ export default {
       probeType: 3,
     });
     this.scroll.on('scroll',position=>{
-      console.log(position)
+      // console.log(position)
     })
   },
 };

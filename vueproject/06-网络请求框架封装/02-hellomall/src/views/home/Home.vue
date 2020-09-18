@@ -67,6 +67,7 @@ export default {
       isShow: false,
       tabOffsetTop: 0,
       isTabFixed: false,
+      saveY:0
     };
   },
   created() {
@@ -135,6 +136,15 @@ export default {
       this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
     },
   },
+  activated () {
+    console.log("activated")
+    this.$refs.scroll.scrollTo(0,this.saveY)
+    this.$refs.scroll.refresh()
+  },
+  deactivated () {
+    console.log("deactivated")
+    this.saveY = this.$refs.scroll.getScrollY();
+  }
 };
 </script>
 
