@@ -5,18 +5,21 @@
       <detail-swiper :topImages="topImages" />
       <detail-base-info :goods="goods" />
       <detail-shop-info :shop="shop" />
-      <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"/>
+      <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad" />
+      <detail-param-info :param-info="paramInfo"/>
     </scroll>
   </div>
 </template>
 
 <script>
 import DetailNavBar from "views/detail/childComps/DetailNavBar";
-import { getDetail, Goods, Shop } from "network/detail.js";
+import { getDetail, Goods, Shop, GoodsParam } from "network/detail.js";
 import DetailSwiper from "views/detail/childComps/DetailSwiper";
 import DetailBaseInfo from "views/detail/childComps/DetailBaseInfo";
 import DetailShopInfo from "views/detail/childComps/DetailShopInfo";
 import DetailGoodsInfo from "views/detail/childComps/DetailGoodsInfo";
+import DetailParamInfo from "views/detail/childComps/DetailParamInfo";
+
 
 import Scroll from "components/common/scroll/Scroll";
 
@@ -28,14 +31,15 @@ export default {
       topImages: [],
       goods: {},
       shop: {},
-      detailInfo:{}
+      detailInfo: {},
+      paramInfo:{}
     };
   },
   methods: {
     loadMore() {},
-    imageLoad(){
-      this.$refs.srcoll.refresh()
-    }
+    imageLoad() {
+      this.$refs.srcoll.refresh();
+    },
   },
   created() {
     this.iid = this.$route.params.iid;
@@ -49,7 +53,8 @@ export default {
         data.shopInfo.services
       );
       this.shop = new Shop(data.shopInfo);
-      this.detailInfo = data.detailInfo
+      this.detailInfo = data.detailInfo;
+      this.paramInfo = new GoodsParam(data.itemParams.info,data.itemParams.rule)
     });
   },
   components: {
@@ -59,6 +64,7 @@ export default {
     DetailShopInfo,
     DetailGoodsInfo,
     Scroll,
+    DetailParamInfo
   },
 };
 </script>
