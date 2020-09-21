@@ -1,9 +1,12 @@
 <template>
-  <div class="detail">
-    <detail-nav-bar></detail-nav-bar>
-    <detail-swiper :topImages="topImages" />
-    <detail-base-info :goods="goods" />
-    <detail-shop-info :shop="shop" />
+  <div id="detail">
+    <detail-nav-bar class="detail-nav"></detail-nav-bar>
+    <scroll class="content" :pull-up-load="true" @pullingUp="loadMore" :probe-type="3" ref="srcoll">
+      <detail-swiper :topImages="topImages" />
+      <detail-base-info :goods="goods" />
+      <detail-shop-info :shop="shop" />
+      <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"/>
+    </scroll>
   </div>
 </template>
 
@@ -13,6 +16,9 @@ import { getDetail, Goods, Shop } from "network/detail.js";
 import DetailSwiper from "views/detail/childComps/DetailSwiper";
 import DetailBaseInfo from "views/detail/childComps/DetailBaseInfo";
 import DetailShopInfo from "views/detail/childComps/DetailShopInfo";
+import DetailGoodsInfo from "views/detail/childComps/DetailGoodsInfo";
+
+import Scroll from "components/common/scroll/Scroll";
 
 export default {
   name: "Detail",
@@ -22,7 +28,14 @@ export default {
       topImages: [],
       goods: {},
       shop: {},
+      detailInfo:{}
     };
+  },
+  methods: {
+    loadMore() {},
+    imageLoad(){
+      this.$refs.srcoll.refresh()
+    }
   },
   created() {
     this.iid = this.$route.params.iid;
@@ -36,6 +49,7 @@ export default {
         data.shopInfo.services
       );
       this.shop = new Shop(data.shopInfo);
+      this.detailInfo = data.detailInfo
     });
   },
   components: {
@@ -43,6 +57,8 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
+    DetailGoodsInfo,
+    Scroll,
   },
 };
 </script>
@@ -52,5 +68,22 @@ export default {
   position: relative;
   z-index: 9;
   background-color: #fff;
+  height: 100vh;
 }
+
+.detail-nav {
+  position: relative;
+  z-index: 9;
+  background-color: #fff;
+}
+
+.content {
+  position: absolute;
+  top: 44px;
+  bottom: 60px;
+}
+
+/* .content {
+  height: calc(100%-44px);
+} */
 </style>
