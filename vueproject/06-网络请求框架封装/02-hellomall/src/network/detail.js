@@ -15,6 +15,7 @@ export class Goods {
     this.newPrice = itemInfo.price;
     this.oldPrice = itemInfo.oldPrice;
     this.discount = itemInfo.discountDesc;
+    this.discountBgColor = itemInfo.discountBgColor;
     this.columns = columns;
     this.services = services;
     this.nowPrice = itemInfo.highNowPrice;
@@ -39,4 +40,10 @@ export class GoodsParam {
     this.infos = info.set;
     this.sizes = rule.tables;
   }
+}
+
+export function getRecommend(){
+  return request({
+    url: "/recommend",
+  });
 }
