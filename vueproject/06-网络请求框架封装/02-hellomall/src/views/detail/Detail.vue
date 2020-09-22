@@ -5,7 +5,7 @@
       <detail-swiper :topImages="topImages" />
       <detail-base-info :goods="goods" />
       <detail-shop-info :shop="shop" />
-      <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad" />
+      <detail-goods-info :detail-info="detailInfo" @detailImageLoad="imageLoad" />
       <detail-param-info :param-info="paramInfo" />
       <detail-comment-info :comment-info="commentInfo" />
       <goods-list :goods="recommends" />
@@ -53,7 +53,8 @@ export default {
   methods: {
     loadMore() {},
     imageLoad() {
-      this.$refs.scroll.refresh();
+      // this.$refs.scroll.refresh();
+      this.refresh();
     },
   },
   created() {

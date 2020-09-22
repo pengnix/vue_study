@@ -29,10 +29,10 @@
     },
     methods: {
       imageLoad(){
-        if(++this.counter === this.imagesLength){
-          console.log("imageLoad"+this.counter + "" + this.imagesLength);
-          this.$emit("imageLoad")
-        }
+        // if(++this.counter === this.imagesLength){
+          // console.log("imageLoad"+this.counter + "" + this.imagesLength);
+          this.$emit("detailImageLoad")
+        // }
       }
     },
     watch: {
