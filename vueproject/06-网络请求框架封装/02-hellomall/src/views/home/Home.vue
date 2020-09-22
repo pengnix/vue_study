@@ -41,6 +41,8 @@ import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
 
 import { debounce } from "common/utils.js";
+import {itemListenerMixin} from "common/mixin.js"
+
 
 export default {
   name: "Home",
@@ -54,6 +56,7 @@ export default {
     Scroll,
     BackTop,
   },
+  mixins: [itemListenerMixin],
   data() {
     return {
       banners: [],
@@ -67,7 +70,7 @@ export default {
       isShow: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      saveY:0
+      saveY:0,
     };
   },
   created() {
@@ -77,10 +80,6 @@ export default {
     this.getHomeGoods("sell");
   },
   mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 100);
-    this.$bus.$on("itemImageLoad", () => {
-      refresh();
-    });
   },
   computed: {
     showGoods() {
@@ -143,6 +142,7 @@ export default {
   },
   deactivated () {
     console.log("deactivated")
+    this.$bus.$off("itemImageLoad",this.itemImgListener)
     this.saveY = this.$refs.scroll.getScrollY();
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div id="detail">
     <detail-nav-bar class="detail-nav"></detail-nav-bar>
-    <scroll class="content" :pull-up-load="true" @pullingUp="loadMore" :probe-type="3" ref="scroll" >
+    <scroll class="content" :pull-up-load="true" @pullingUp="loadMore" :probe-type="3" ref="scroll">
       <detail-swiper :topImages="topImages" />
       <detail-base-info :goods="goods" />
       <detail-shop-info :shop="shop" />
@@ -33,6 +33,7 @@ import DetailCommentInfo from "views/detail/childComps/DetailCommentInfo";
 import GoodsList from "components/content/goods/GoodsList";
 
 import Scroll from "components/common/scroll/Scroll";
+import {itemListenerMixin} from "common/mixin.js"
 
 export default {
   name: "Detail",
@@ -48,6 +49,7 @@ export default {
       recommends: [],
     };
   },
+  mixins: [itemListenerMixin],
   methods: {
     loadMore() {},
     imageLoad() {
@@ -92,10 +94,11 @@ export default {
     GoodsList,
   },
   mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 100);
-    this.$bus.$on("itemImageLoad", () => {
-      refresh();
-    });
+
+  },
+
+  destroyed() {
+    this.$bus.$off("itemImageLoad", this.itemImgListener);
   },
 };
 </script>
