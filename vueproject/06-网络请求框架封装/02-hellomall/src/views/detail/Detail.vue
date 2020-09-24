@@ -18,6 +18,7 @@
       <goods-list :goods="recommends" ref="recommend" />
     </scroll>
     <detail-bottom-bar></detail-bottom-bar>
+    <back-top @click.native="backClick" v-show="isShow" />
   </div>
 </template>
 
@@ -43,7 +44,7 @@ import DetailBottomBar from "views/detail/childComps/DetailBottomBar";
 import GoodsList from "components/content/goods/GoodsList";
 
 import Scroll from "components/common/scroll/Scroll";
-import { itemListenerMixin } from "common/mixin.js";
+import { itemListenerMixin, backTopMixin } from "common/mixin.js";
 
 export default {
   name: "Detail",
@@ -62,7 +63,7 @@ export default {
       currentIndex: 0,
     };
   },
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin,backTopMixin],
   methods: {
     loadMore() {},
     imageLoad() {
@@ -87,6 +88,7 @@ export default {
           this.$refs.nav.currentIndex = this.currentIndex;
         }
       }
+      this.isShow = position.y < -1000;
     },
   },
   created() {
@@ -142,7 +144,7 @@ export default {
     DetailParamInfo,
     DetailCommentInfo,
     GoodsList,
-    DetailBottomBar
+    DetailBottomBar,
   },
   mounted() {},
 
@@ -169,7 +171,7 @@ export default {
 .content {
   position: absolute;
   top: 44px;
-  bottom: 60px;
+  bottom: 58px;
 }
 
 /* .content {

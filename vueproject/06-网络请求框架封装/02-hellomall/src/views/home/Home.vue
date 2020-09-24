@@ -33,7 +33,6 @@ import NavBar from "components/common/navbar/NavBar";
 import Scroll from "components/common/scroll/Scroll";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
-import BackTop from "components/content/backTop/BackTop";
 
 import { getHomeMultidata, getHomeGoods } from "network/home.js";
 import HomeSwiper from "./childComps/HomeSwiper";
@@ -41,8 +40,7 @@ import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
 
 import { debounce } from "common/utils.js";
-import {itemListenerMixin} from "common/mixin.js"
-
+import { itemListenerMixin, backTopMixin } from "common/mixin.js";
 
 export default {
   name: "Home",
@@ -54,9 +52,8 @@ export default {
     FeatureView,
     GoodsList,
     Scroll,
-    BackTop,
   },
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin, backTopMixin],
   data() {
     return {
       banners: [],
@@ -67,10 +64,9 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
-      isShow: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      saveY:0,
+      saveY: 0,
     };
   },
   created() {
@@ -79,8 +75,7 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
-  mounted() {
-  },
+  mounted() {},
   computed: {
     showGoods() {
       return this.goods[this.currentType].list;
@@ -118,10 +113,7 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    backClick() {
-      console.log("1111");
-      this.$refs.scroll.scrollTo(0, 0, 500);
-    },
+
     contentScroll(position) {
       // console.log(position.y);
       this.isShow = position.y < -1000;
@@ -135,16 +127,16 @@ export default {
       this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
     },
   },
-  activated () {
-    console.log("activated")
-    this.$refs.scroll.scrollTo(0,this.saveY)
-    this.$refs.scroll.refresh()
+  activated() {
+    console.log("activated");
+    this.$refs.scroll.scrollTo(0, this.saveY);
+    this.$refs.scroll.refresh();
   },
-  deactivated () {
-    console.log("deactivated")
-    this.$bus.$off("itemImageLoad",this.itemImgListener)
+  deactivated() {
+    console.log("deactivated");
+    this.$bus.$off("itemImageLoad", this.itemImgListener);
     this.saveY = this.$refs.scroll.getScrollY();
-  }
+  },
 };
 </script>
 
