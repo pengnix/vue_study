@@ -1,14 +1,14 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav"></detail-nav-bar>
+    <detail-nav-bar class="detail-nav" @titleClick="titleClick"></detail-nav-bar>
     <scroll class="content" :pull-up-load="true" @pullingUp="loadMore" :probe-type="3" ref="scroll">
-      <detail-swiper :topImages="topImages" />
+      <detail-swiper :top-images="topImages" />
       <detail-base-info :goods="goods" />
       <detail-shop-info :shop="shop" />
       <detail-goods-info :detail-info="detailInfo" @detailImageLoad="imageLoad" />
-      <detail-param-info :param-info="paramInfo" />
-      <detail-comment-info :comment-info="commentInfo" />
-      <goods-list :goods="recommends" />
+      <detail-param-info :param-info="paramInfo" ref="params" />
+      <detail-comment-info :comment-info="commentInfo" ref="comment" />
+      <goods-list :goods="recommends" ref="recommend" />
     </scroll>
   </div>
 </template>
@@ -33,7 +33,7 @@ import DetailCommentInfo from "views/detail/childComps/DetailCommentInfo";
 import GoodsList from "components/content/goods/GoodsList";
 
 import Scroll from "components/common/scroll/Scroll";
-import {itemListenerMixin} from "common/mixin.js"
+import { itemListenerMixin } from "common/mixin.js";
 
 export default {
   name: "Detail",
@@ -47,6 +47,8 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommends: [],
+      themeTopYs: [],
+      getThemeTopY:[]
     };
   },
   mixins: [itemListenerMixin],
@@ -54,13 +56,18 @@ export default {
     loadMore() {},
     imageLoad() {
       // this.$refs.scroll.refresh();
+      this.getThemeTopY()
       this.refresh();
+    },
+    titleClick(index) {
+      console.log("index=" + index);
+      this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100);
     },
   },
   created() {
     this.iid = this.$route.params.iid;
     getDetail(this.iid).then((res) => {
-      console.log(res);
+      // console.log(res);
       const data = res.result;
       this.topImages = data.itemInfo.topImages;
       this.goods = new Goods(
@@ -77,11 +84,27 @@ export default {
       if (data.rate.cRate !== 0) {
         this.commentInfo = data.rate.list[0];
       }
+
+      // this.$nextTick(() => {
+      //   this.themeTopYs = [];
+      //   this.themeTopYs.push(0);
+      //   this.themeTopYs.push(this.$refs.params.$el.offsetTop);
+      //   this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
+      //   this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
+      // });
     });
     getRecommend().then((res) => {
-      console.log(res);
+      // console.log(res);
       this.recommends = res.data.list;
     });
+    this.getThemeTopY = debounce(()=>{
+      this.themeTopYs = [];
+      this.themeTopYs.push(0);
+      this.themeTopYs.push(this.$refs.params.$el.offsetTop);
+      this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
+      this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
+      console.log("----")
+    },200)
   },
   components: {
     DetailNavBar,
@@ -94,9 +117,7 @@ export default {
     DetailCommentInfo,
     GoodsList,
   },
-  mounted() {
-
-  },
+  mounted() {},
 
   destroyed() {
     this.$bus.$off("itemImageLoad", this.itemImgListener);

@@ -60,7 +60,7 @@ export default {
     },
     refresh() {
       this.scroll && this.scroll.refresh && this.scroll.refresh();
-      console.log("111");
+      // console.log("111");
     },
     getScrollY() {
       return this.scroll.y;
