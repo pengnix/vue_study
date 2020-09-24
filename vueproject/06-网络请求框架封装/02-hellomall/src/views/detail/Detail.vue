@@ -17,7 +17,7 @@
       <detail-comment-info :comment-info="commentInfo" ref="comment" />
       <goods-list :goods="recommends" ref="recommend" />
     </scroll>
-    <detail-bottom-bar></detail-bottom-bar>
+    <detail-bottom-bar @addCart="addCart"></detail-bottom-bar>
     <back-top @click.native="backClick" v-show="isShow" />
   </div>
 </template>
@@ -63,7 +63,7 @@ export default {
       currentIndex: 0,
     };
   },
-  mixins: [itemListenerMixin,backTopMixin],
+  mixins: [itemListenerMixin, backTopMixin],
   methods: {
     loadMore() {},
     imageLoad() {
@@ -90,11 +90,21 @@ export default {
       }
       this.isShow = position.y < -1000;
     },
+    addCart() {
+      console.log("add")
+      const product = {};
+      product.image = this.topImages[0];
+      product.title = this.goods.title;
+      product.desc = this.goods.desc;
+      product.price = this.goods.realPrice;
+      product.iid = this.iid;
+      this.$store.commit("addCart",product)
+    },
   },
   created() {
     this.iid = this.$route.params.iid;
     getDetail(this.iid).then((res) => {
-      // console.log(res);
+      console.log(res);
       const data = res.result;
       this.topImages = data.itemInfo.topImages;
       this.goods = new Goods(
