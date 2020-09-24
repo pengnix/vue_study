@@ -17,6 +17,7 @@
       <detail-comment-info :comment-info="commentInfo" ref="comment" />
       <goods-list :goods="recommends" ref="recommend" />
     </scroll>
+    <detail-bottom-bar></detail-bottom-bar>
   </div>
 </template>
 
@@ -37,6 +38,8 @@ import DetailShopInfo from "views/detail/childComps/DetailShopInfo";
 import DetailGoodsInfo from "views/detail/childComps/DetailGoodsInfo";
 import DetailParamInfo from "views/detail/childComps/DetailParamInfo";
 import DetailCommentInfo from "views/detail/childComps/DetailCommentInfo";
+import DetailBottomBar from "views/detail/childComps/DetailBottomBar";
+
 import GoodsList from "components/content/goods/GoodsList";
 
 import Scroll from "components/common/scroll/Scroll";
@@ -139,6 +142,7 @@ export default {
     DetailParamInfo,
     DetailCommentInfo,
     GoodsList,
+    DetailBottomBar
   },
   mounted() {},
 
