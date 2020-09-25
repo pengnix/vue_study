@@ -91,14 +91,14 @@ export default {
       this.isShow = position.y < -1000;
     },
     addCart() {
-      console.log("add")
+      console.log("add" + this.iid)
       const product = {};
       product.image = this.topImages[0];
       product.title = this.goods.title;
       product.desc = this.goods.desc;
       product.price = this.goods.realPrice;
       product.iid = this.iid;
-      this.$store.commit("addCart",product)
+      this.$store.dispatch("addCart",product)
     },
   },
   created() {
