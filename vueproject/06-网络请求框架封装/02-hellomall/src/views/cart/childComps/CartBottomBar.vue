@@ -1,13 +1,11 @@
 <template>
   <div class="cart-bottom-bar">
     <div class="check-content">
-      <check-button class="check-button" />
+      <check-button class="check-button" :is-checked="isSelectAll" @click.native="allSelect" />
       <span>全选</span>
     </div>
     <div class="price">合计:{{totalPrice}}</div>
-    <div class="calculate">
-      去计算 ({{checkLenght}})
-    </div>
+    <div class="calculate">去计算 ({{checkLenght}})</div>
   </div>
 </template>
 
@@ -20,7 +18,19 @@ export default {
   components: {
     CheckButton,
   },
-  methods: {},
+  methods: {
+    allSelect() {
+      if(this.isSelectAll){
+        this.$store.getters.cartList.forEach(element => {
+          element.checked = false
+        });
+      } else {
+        this.$store.getters.cartList.forEach(element => {
+          element.checked = true
+        });
+      }
+    },
+  },
   computed: {
     totalPrice() {
       return (
@@ -31,12 +41,18 @@ export default {
           })
           .reduce((preValue, item) => {
             return item.newPrice * item.count + preValue;
-          }, 0).toFixed(2)
+          }, 0)
+          .toFixed(2)
       );
     },
-    checkLenght(){
-      return this.$store.getters.cartList.filter(item=>item.checked).length
-    }
+    checkLenght() {
+      return this.$store.getters.cartList.filter((item) => item.checked).length;
+    },
+    isSelectAll() {
+      // return !(this.$store.getters.cartList.filter(item=>!item.checked).length)
+      if (this.$store.getters.cartList.length === 0) return false;
+      return !this.$store.getters.cartList.find((item) => !item.checked);
+    },
   },
 };
 </script>
@@ -68,7 +84,7 @@ export default {
   margin-right: 20px;
   flex: 1;
 }
-.calculate{
+.calculate {
   width: 90px;
   background-color: red;
   color: #fff;
