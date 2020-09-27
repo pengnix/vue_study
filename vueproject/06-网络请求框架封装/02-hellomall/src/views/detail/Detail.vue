@@ -17,8 +17,9 @@
       <detail-comment-info :comment-info="commentInfo" ref="comment" />
       <goods-list :goods="recommends" ref="recommend" />
     </scroll>
-    <detail-bottom-bar @addCart="addCart"></detail-bottom-bar>
+    <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
     <back-top @click.native="backClick" v-show="isShow" />
+    <toast :message="message" :show="show"></toast>
   </div>
 </template>
 
@@ -44,7 +45,9 @@ import DetailBottomBar from "views/detail/childComps/DetailBottomBar";
 import GoodsList from "components/content/goods/GoodsList";
 
 import Scroll from "components/common/scroll/Scroll";
+import Toast from "components/common/toast/Toast";
 import { itemListenerMixin, backTopMixin } from "common/mixin.js";
+import { mapActions } from "vuex";
 
 export default {
   name: "Detail",
@@ -61,10 +64,13 @@ export default {
       themeTopYs: [],
       getThemeTopY: [],
       currentIndex: 0,
+      message: "hhhhh",
+      show: false,
     };
   },
   mixins: [itemListenerMixin, backTopMixin],
   methods: {
+    ...mapActions(["addCart"]),
     loadMore() {},
     imageLoad() {
       // this.$refs.scroll.refresh();
@@ -90,15 +96,27 @@ export default {
       }
       this.isShow = position.y < -1000;
     },
-    addCart() {
-      console.log("add" + this.iid)
+    addToCart() {
+      // console.log("add" + this.iid)
       const product = {};
       product.image = this.topImages[0];
       product.title = this.goods.title;
       product.desc = this.goods.desc;
       product.newPrice = this.goods.realPrice;
       product.iid = this.iid;
-      this.$store.dispatch("addCart",product)
+      // this.$store.dispatch("addCart", product).then((res) => {
+      //   console.log(res);
+      // });
+      this.addCart(product).then((res) => {
+        this.message = res;
+        this.show = true;
+        setTimeout(()=>{
+          this.show = false
+        },3000)
+        console.log(res);
+
+        // this.$toast.show(res,2000)
+      });
     },
   },
   created() {
@@ -155,6 +173,7 @@ export default {
     DetailCommentInfo,
     GoodsList,
     DetailBottomBar,
+    Toast,
   },
   mounted() {},
 
